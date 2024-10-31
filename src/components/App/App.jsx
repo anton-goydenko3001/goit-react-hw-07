@@ -6,7 +6,7 @@ import "./App.css";
 import { selectError, selectIsLoading } from "../../redux/contactsSlice";
 import { useEffect } from "react";
 import { fetchContacts } from "../../redux/contactsOps";
-import Loader from "../Loader/loader";
+import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { Toaster, toast } from "react-hot-toast";
 
