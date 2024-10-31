@@ -1,11 +1,17 @@
 import { useDispatch } from "react-redux";
 import style from "./Contact.module.css";
 import { PiPhoneBold, PiUserBold } from "react-icons/pi";
-import { deleteContact } from "../../redux/contactsSlice";
+import { deleteContacts } from "../../redux/contactsOps";
+import toast from "react-hot-toast";
 
 export default function Contact({ contact }) {
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(contact.id));
+  const handleDelete = () =>
+    dispatch(deleteContacts(contact.id))
+      .unwrap()
+      .then(() => {
+        toast.success("Contact deleted successfully!");
+      });
 
   return (
     <div className={style.mainContainer}>

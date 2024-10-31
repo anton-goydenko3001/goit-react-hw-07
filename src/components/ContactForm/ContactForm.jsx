@@ -2,9 +2,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 // import { useId } from "react";
 import { nanoid } from "nanoid";
-import style from "./ContactForm.module.css";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContacts } from "../../redux/contactsOps";
+import style from "./ContactForm.module.css";
+import toast from "react-hot-toast";
 
 const phoneRegex = /^[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{2}$/;
 
@@ -25,12 +26,19 @@ export default function ContactForm() {
 
   const handleSubmit = (values, actions) => {
     dispatch(
-      addContact({
+      addContacts({
         id: nanoid(),
         name: values.name,
         number: values.number,
       })
-    );
+    )
+      .unwrap()
+      .then(() => {
+        toast.success("Contact successfully added!");
+      })
+      .catch((error) => {
+        toast.error("Failed to add contact!");
+      });
     actions.resetForm();
   };
 
